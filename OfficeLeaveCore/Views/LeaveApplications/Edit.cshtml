@@ -1,0 +1,78 @@
+﻿@model OfficeLeaveCore.Models.LeaveApplication
+
+@{
+    ViewData["Title"] = "Edit Leave Application";
+    Layout = "~/Views/Shared/_LeaveApplicationLayout.cshtml";
+}
+
+
+<!-- Breadcrumbs-->
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <div aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">Leave Applications</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit Leave Application</li>
+      </ol>
+    </div>
+
+    <a class="btn btn-primary shadow" asp-action="Index">View All Applicants</a>
+</div>
+<!--End: Breadcrumbs-->
+
+<partial name="_AlertPartial"/>
+
+<div class="card shadow mb-3">
+    <div class="container">
+        <div class="card-body">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="UserId" />
+                <h5>Leave Applicant Form</h5>
+              
+                <div class="col-md mb-3">
+                    <label class="form-label" asp-for="LeaveType"></label>
+                    <select class="form-select" asp-for="LeaveType">
+                        <option value="Sick">Sick Leave</option>
+                        <option value="Casual">Casual Leave</option>
+                        <option value="Maternity">Maternity</option>
+                        <option value="Paternity">Paternity Leave</option>
+                        <option value="Bereavement">Bereavement Leave</option>
+                        <option value="Compensatory">Compensatory Leave</option>
+                        <option value="Sabbatical">Sabbatical Leave</option>
+                        <option value="Unpaid">Unpaid Leave</option>
+                    </select>
+                     <span asp-validation-for="LeaveType" class="text-danger"></span>
+                </div>
+
+                <div class="col-md mb-3">
+                    <label class="form-label" asp-for="Reason"></label>
+                    <textarea class="form-control" asp-for="Reason" rows="3"></textarea>
+                     <span asp-validation-for="Reason" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md mb-3">
+                        <label class="form-label" asp-for="LeaveStart"></label>
+                        <input type="date" class="form-control" asp-for="LeaveStart"/>
+                    </div>
+
+                    <div class="col-md mb-3">
+                        <label class="form-label" asp-for="LeaveEnd"></label>
+                        <input type="date" class="form-control" asp-for="LeaveEnd"/>
+                    </div>
+                </div>
+
+
+                <hr />
+                <div class="col-md float-end mb-3">
+                    <button type="submit" class="btn btn-primary submit-btn shadow">Save Changes</button>
+                    <a asp-action="Index" class="btn btn-danger close-btn shadow">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,130 @@
+﻿@model OfficeLeaveCore.Models.LeaveApproval;
+@{
+    ViewData["Title"] = "Application Approval";
+    Layout = "~/Views/Shared/_LeaveApplicationLayout.cshtml";
+}
+
+<!-- Breadcrumbs-->
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <div aria-label="breadcrumb">
+      <ol class="breadcrumb">
+		  <li class="breadcrumb-item"><a asp-action="Index" asp-controller="LeaveApplications">Leave Applications</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Application Approval</li>
+      </ol>
+    </div>
+</div>
+<!--End: Breadcrumbs-->
+
+<partial name="_AlertPartial"/>
+
+<div class="card shadow border-0">
+	<div class="card-header border-bottom-0 bg-white">
+		<div id="tabs">
+			<div>
+				<div class="nav nav-tabs" id="nav-tab" role="tablist">
+					<button class="nav-item nav-link active" id="applicationTab" data-bs-toggle="tab" data-bs-target="#applicationInfo" role="tab" aria-selected="true">Application Information</button>
+					<button class="nav-item nav-link" id="approvalTab" data-bs-toggle="tab" data-bs-target="#approvalForm" role="tab" aria-selected="false">Approval Form</button>
+				</div>	
+			</div>
+		</div>
+	</div>
+
+	<div class="card-body">
+        <div class="tab-content" id="nav-tabContent">
+            <div id="applicationInfo" class="tab-pane fade show active"  role="tabpanel" tabindex="0">
+			    <div class="container">
+					<table class="display-table">
+                        <tr>
+                            <td>
+                                <label class="form-label">Applicant's Name</label>
+                            </td>
+                            <td>
+                                <input class="form-control text-muted mb-3" value="@ViewBag.LeaveApplication.ApplicantName" readonly/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <label class="form-label">Applicant's Email</label>
+                            </td>
+                            <td>
+                                <input class="form-control text-muted mb-3" value="@ViewBag.LeaveApplication.ApplicantEmail" readonly />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <label class="form-label">Leave Type</label>
+                            </td>
+                            <td>
+                                <input class="form-control text-muted mb-3" value="@ViewBag.LeaveApplication.LeaveType" readonly />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <label class="form-label">Reason</label>
+                            </td>
+                            <td>
+                                <textarea class="form-control text-muted mb-3" readonly>@ViewBag.LeaveApplication.Reason</textarea>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <label class="form-label">Leave Start</label>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control text-muted mb-3" value="@ViewBag.LeaveApplication.LeaveStart.ToLongDateString()" readonly />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <label class="form-label">Leave End</label>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control text-muted mb-3" value="@ViewBag.LeaveApplication.LeaveEnd.ToLongDateString()" readonly />
+                            </td>
+                        </tr>
+                    </table>
+				</div>
+		    </div>
+
+            <div id="approvalForm" class="tab-pane fade"  role="tabpanel" tabindex="0">
+                <form class="container" asp-action="Create" method="post">
+                    <p class="text-black-50 fst-italic">After viewing applicant information request for leave, 
+                        please provide a response in the form of <strong class="text-primary">Approved</strong> or <strong class="text-danger">Not Approved</strong> 
+                    </p>
+
+                    <div class="col">
+                        <input type="hidden" asp-for="ApplicationId" value="@ViewBag.LeaveApplication.Id" required/>
+                    </div>
+
+                    <h5>Your response: </h5>
+                    <div class="col-md mb-3">
+                        <div class="btn-group" role="group">
+                          <input type="radio" class="btn-check" id="btnradio1" name="ApprovingFlag" autocomplete="off" value="true">
+                          <label class="btn btn-outline-primary" for="btnradio1">Approved</label>
+
+                          <input type="radio" class="btn-check" id="btnradio2" name="ApprovingFlag" autocomplete="off" value="false" checked>
+                          <label class="btn btn-outline-danger" for="btnradio2">Not Approved</label>
+                        </div>
+                        <span asp-validation-for="ApprovingFlag" class="text-danger"></span>
+                    </div>
+
+                    <hr />
+                    <div class="col-md float-end mb-3">
+                        <button type="submit" class="btn btn-primary submit-btn shadow">Submit Approval</button>
+                        <a asp-controller="LeaveApplications" asp-action="Index" class="btn btn-danger close-btn shadow">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+		
+	</div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

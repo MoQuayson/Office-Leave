@@ -1,0 +1,64 @@
+﻿@model OfficeLeaveCore.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "User Information";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<!-- Breadcrumbs-->
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <div aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">Users</a></li>
+        <li class="breadcrumb-item active" aria-current="page">User Information</li>
+      </ol>
+    </div>
+
+    <a class="btn btn-primary shadow" asp-action="Index">View All Users</a>
+</div>
+<!--End: Breadcrumbs-->
+
+<partial name="_AlertPartial"/>
+
+<div class="card shadow">
+    <div class="container">
+        <div class="card-body">
+            <table class="display-table">
+                <tr>
+                    <td>
+                        <label class="form-label" asp-for="FullName"></label>
+                    </td>
+                    <td>
+                        <input class="form-control text-muted mb-3" asp-for="FullName" readonly/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label class="form-label" asp-for="UserName"></label>
+                    </td>
+                    <td>
+                        <input class="form-control text-muted mb-3" asp-for="UserName" readonly/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label class="form-label" asp-for="Email"></label>
+                    </td>
+                    <td>
+                        <input class="form-control text-muted mb-3" asp-for="Email" readonly/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card-footer bg-white border-top-0">
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-success me-2" asp-action="Edit" asp-route-id="@Model.Id">Edit User</a>
+                <a class="btn btn-primary" asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+

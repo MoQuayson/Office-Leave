@@ -1,0 +1,100 @@
+﻿@model IEnumerable<OfficeLeaveCore.Dto.LeaveApplicationDTO>
+
+@{
+    ViewData["Title"] = "Leave Applications";
+    Layout = "~/Views/Shared/_LeaveApplicationLayout.cshtml";
+}
+
+<!-- Breadcrumbs-->
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <div aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Leave Applications</li>
+      </ol>
+    </div>
+
+    <a class="btn btn-primary shadow" asp-action="Create">Apply for leave</a>
+</div>
+<!--End: Breadcrumbs-->
+
+<partial name="_AlertPartial"/>
+
+<!-- Data display-->
+<div class="card shadow">
+    <div class="card-header bg-white">
+        <h6 class="card-title">Leave Applicants</h6>
+    </div>
+
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Type</th>
+                        <th>Reason</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Approval</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody class="table-group-divider">
+                    @{
+                        if(Model == null || Model.Count() < 1)
+                        {
+                            <tr>
+                                <td class="text-center text-danger" colspan="8">No Applicants Found or Empty</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach(var item in Model)
+                            {
+                                <tr class="align-middle">
+                                    <td>@item.ApplicantName</td>
+                                    <td>@item.ApplicantEmail</td>
+                                    <td>@item.LeaveType</td>
+                                    <td>@item.Reason</td>
+                                    <td>@item.LeaveStart.Date.ToLongDateString()</td>
+                                    <td>@item.LeaveEnd.Date.ToLongDateString()</td>
+                                    
+                                    <td>
+                                        @{
+                                        if(item.ApprovalFlag)
+                                        {
+                                            <span class="badge rounded-pill text-bg-success shadow-sm">Approved</span>
+                                        }
+                                        else{
+                                            <span class="badge rounded-pill text-bg-danger shadow-sm">Not Approved</span>
+                                        }
+                                    }
+                                    </td>
+
+                                    <td>
+                                        <div class="dropdown actions-dropdown">
+                                          <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                           <i class="bi bi-chevron-down fs-4"></i>
+                                          </button>
+                                          <ul class="dropdown-menu dropdown-menu-start dropdown-menu-macos">
+                                            <li><a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">View</a></li>
+                                            <li><a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id">Edit</a></li>
+                                            @if(ViewBag.CanApprove == true)
+                                            {
+                                               <li><a class="dropdown-item" href="/leaveapplications/@item.Id/leaveapprovals">Approve</a></li>
+                                            }
+                                          </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

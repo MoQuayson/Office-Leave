@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OfficeLeaveCore.Data;
+using OfficeLeaveCore.Models;
 
 [assembly: HostingStartup(typeof(OfficeLeaveCore.Areas.Identity.IdentityHostingStartup))]
 namespace OfficeLeaveCore.Areas.Identity

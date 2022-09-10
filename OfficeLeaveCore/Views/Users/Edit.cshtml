@@ -1,0 +1,51 @@
+﻿@model OfficeLeaveCore.Models.ApplicationUser;
+@{
+    ViewData["Title"] = "Edit User Information";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<!-- Breadcrumbs-->
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <div aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">Users</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit User Information</li>
+      </ol>
+    </div>
+
+    <a class="btn btn-primary submit-btn shadow" asp-action="Index">View All Users</a>
+</div>
+<!--End: Breadcrumbs-->
+
+<partial name="_AlertPartial"/>
+
+<div class="card shadow">
+    <div class="container">
+        <div class="card-body">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <div class="col-md mb-3">
+                    <label class="form-label" asp-for="FullName"></label>
+                    <input type="text" class="form-control" asp-for="FullName" placeholder="ex. John Doe"/>
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="col-md mb-3">
+                    <label class="form-label" asp-for="Email"></label>
+                    <input type="email" class="form-control" asp-for="Email" placeholder="ex. johndoe45@example.com"/>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+
+                <hr />
+                <div class="col-md float-end mb-3">
+                    <button type="submit" class="btn btn-primary submit-btn shadow">Save Changes</button>
+                    <a asp-action="Index" class="btn btn-danger close-btn shadow">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

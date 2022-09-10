@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OfficeLeaveCore.Data;
+using OfficeLeaveCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,8 @@ namespace OfficeLeaveCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRouting(options => options.LowercaseUrls = true);
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -66,8 +69,21 @@ namespace OfficeLeaveCore
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "LeaveApproval",
+                    pattern: "leaveapplications/{leaveId}/{controller=LeaveApprovals}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "LeaveApplication",
+                    pattern: "leave-applications/{*id}",
+                    defaults:new { controller = "LeaveApplications",action="Index" });
+                    //pattern: "{controller=LeaveApplications}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                
+
                 endpoints.MapRazorPages();
             });
 

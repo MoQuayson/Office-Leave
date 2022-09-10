@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using OfficeLeaveCore.Data;
+using OfficeLeaveCore.Models;
 
 namespace OfficeLeaveCore.Areas.Identity.Pages.Account
 {

@@ -1,0 +1,102 @@
+﻿@model OfficeLeaveCore.Models.LeaveApplication
+
+@{
+    ViewData["Title"] = "Leave Applicant Information";
+    Layout = "~/Views/Shared/_LeaveApplicationLayout.cshtml";
+}
+<!-- Breadcrumbs-->
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <div aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">Leave Applications</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Leave Applicant Information</li>
+      </ol>
+    </div>
+
+    <a class="btn btn-primary shadow" asp-action="Index">View All Applications</a>
+</div>
+<!--End: Breadcrumbs-->
+<partial name="_AlertPartial"/>
+
+<div class="card shadow">
+    <div class="container">
+        <div class="card-header  bg-white">
+            <h6>Leave Applicant Information</h6>
+        </div>
+        <div class="card-body">
+            <table class="display-table">
+                <tr>
+                    <td>
+                        <label class="form-label">Applicant's Name</label>
+                    </td>
+                    <td>
+                        <input class="form-control text-muted mb-3" value="@ViewBag.ApplicantName" readonly/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label class="form-label">Applicant's Email</label>
+                    </td>
+                    <td>
+                        <input class="form-control text-muted mb-3" value="@ViewBag.ApplicantEmail" readonly />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label class="form-label" asp-for="LeaveType"></label>
+                    </td>
+                    <td>
+                        <input class="form-control text-muted mb-3" asp-for="LeaveType" readonly />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label class="form-label" asp-for="Reason"></label>
+                    </td>
+                    <td>
+                        <textarea class="form-control text-muted mb-3" asp-for="Reason" readonly></textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label class="form-label" asp-for="LeaveType"></label>
+                    </td>
+                    <td>
+                        <input class="form-control text-muted mb-3" asp-for="LeaveType" readonly />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label class="form-label" asp-for="LeaveStart"></label>
+                    </td>
+                    <td>
+                        <input type="date" class="form-control text-muted mb-3" asp-for="LeaveStart" readonly />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label class="form-label" asp-for="LeaveEnd"></label>
+                    </td>
+                    <td>
+                        <input type="date" class="form-control text-muted mb-3" asp-for="LeaveEnd" readonly />
+                    </td>
+                </tr>
+                
+            </table>
+        </div>
+
+        <div class="card-footer bg-white border-top-0">
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-success me-2" asp-action="Edit" asp-route-id="@Model.Id">Edit Leave</a>
+                <a class="btn btn-primary" asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+
