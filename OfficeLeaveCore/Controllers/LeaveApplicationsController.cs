@@ -189,36 +189,26 @@ namespace OfficeLeaveCore.Controllers
             return View(leaveApplication);
         }
 
-        // GET: LeaveApplications/Delete/5
+        [HttpDelete]
         [Route("/leave-applications/delete/{id}")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> DeleteLeaveApplication(string id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                var leaveApplication = await _context.LeaveApplications.FindAsync(id);
+                _context.LeaveApplications.Remove(leaveApplication);
+                await _context.SaveChangesAsync();
+                //return RedirectToAction(nameof(Index));
 
-            var leaveApplication = await _context.LeaveApplications
-                .Include(l => l.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (leaveApplication == null)
+                TempData["SuccessMsg"] = "Leave application deleted successfully";
+                return Json("Leave Application deleted successfully.");
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+
+                TempData["ErrorMsg"] = ex.Message.ToString();
+                return Json(ex.Message.ToString());
             }
-
-            return View(leaveApplication);
-        }
-
-        // POST: LeaveApplications/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Route("/leave-applications/delete/{id}")]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            var leaveApplication = await _context.LeaveApplications.FindAsync(id);
-            _context.LeaveApplications.Remove(leaveApplication);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool LeaveApplicationExists(string id)

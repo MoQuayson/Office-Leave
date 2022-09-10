@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - OfficeLeaveCore</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/main.css" />
 </head>
 <body>
     <header>
@@ -19,14 +19,21 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-controller="LeaveApplications" asp-action="Index">Leave Applications</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-controller="Users" asp-action="Index">Users</a>
                         </li>
-                       
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Authorizations
+                          </a>
+                          <ul class="dropdown-menu shadow rounded-3 p-2">
+                            <li><a class="dropdown-item" href="#">Roles</a></li>
+                            <li><a class="dropdown-item" href="#">Claims</a></li>
+                          </ul>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -42,7 +49,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - Office Leave - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - Office Leave Management
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

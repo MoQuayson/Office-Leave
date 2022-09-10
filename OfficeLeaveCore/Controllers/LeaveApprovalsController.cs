@@ -81,19 +81,12 @@ namespace OfficeLeaveCore.Controllers
             return View(leaveApproval);
         }
 
-        // GET: LeaveApprovals/Create
-        public IActionResult Create()
-        {
-            ViewData["ApplicationId"] = new SelectList(_context.LeaveApplications, "Id", "Id");
-            return View();
-        }
-
         // POST: LeaveApprovals/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ApplicationId,ApprovingFlag,ApprovingOfficerId,CreatedAt,UpdatedAt")] LeaveApproval leaveApproval)
+        public async Task<IActionResult> Create([Bind("Id,ApplicationId,ApprovingFlag,CreatedAt,UpdatedAt")] LeaveApproval leaveApproval)
         {
 
             if (ModelState.IsValid)
@@ -147,7 +140,7 @@ namespace OfficeLeaveCore.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("/leave-applications/{leaveId}/leave-approvals/edit/{id}")]
-        public async Task<IActionResult> Edit(string leaveId,string id, [Bind("Id,ApplicationId,ApprovingFlag,ApprovingOfficerId,CreatedAt,UpdatedAt")] LeaveApproval leaveApproval)
+        public async Task<IActionResult> Edit(string leaveId,string id, [Bind("Id,ApplicationId,ApprovingFlag,CreatedAt,UpdatedAt")] LeaveApproval leaveApproval)
         {
             if (id != leaveApproval.Id)
             {
@@ -158,6 +151,7 @@ namespace OfficeLeaveCore.Controllers
             {
                 try
                 {
+                    leaveApproval.ApprovingOfficerId = _userManager.GetUserId(User);
                     _context.Update(leaveApproval);
                     await _context.SaveChangesAsync();
                 }

@@ -29,12 +29,12 @@ nav {
     position: relative;
     font-size: 1em;
     color: black;
-    font-weight: 300;
+    
 }
 
 .nav-link.active {
     color: blue !important;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .breadcrumb, .breadcrumb a {

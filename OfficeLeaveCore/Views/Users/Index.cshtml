@@ -21,8 +21,8 @@
 
 <!-- Data display-->
 <div class="card shadow">
-    <div class="card-header bg-white" hidden>
-        <h6 class="card-title">Users</h6>
+    <div class="card-header bg-white">
+        <h6 class="card-title">Users(@Model.Count())</h6>
     </div>
 
     <div class="card-body p-0">
@@ -31,7 +31,6 @@
                 <thead>
                     <tr>
                         <th scope="col">@Html.DisplayNameFor(m=>m.FullName)</th>
-                        <th scope="col">@Html.DisplayNameFor(m=>m.UserName)</th>
                         <th scope="col">@Html.DisplayNameFor(m=>m.Email)</th>
                           <th scope="col">@Html.DisplayNameFor(m=>m.Roles)</th>
                         <th scope="col" style="width:50px"></th>
@@ -50,15 +49,14 @@
                         {
                             foreach(var item in Model)
                             {
-                                <tr>
+                                <tr class="align-middle">
                                     <td>@item.FullName</td>
-                                    <td>@item.UserName</td>
                                     <td>@item.Email</td>
                                     <td>@item.Roles</td>
                                     <td>
                                         <div class="dropdown actions-dropdown">
                                           <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                           <i class="bi bi-chevron-down"></i>
+                                           <i class="bi bi-chevron-down  fs-4"></i>
                                           </button>
                                           <ul class="dropdown-menu dropdown-menu-start dropdown-menu-macos">
                                             <li><a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">View</a></li>
